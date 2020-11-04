@@ -17,4 +17,63 @@ public class AccountTest {
         Assertions.assertTrue(account.getBalance() == 0.0);
         Assertions.assertTrue(account.getListOperation().size() == 0);
     }
+
+    @Test
+    void deposit_positive_amount() throws IllegalArgumentException {
+        //GIVEN
+        double amount = 200.0;
+        //WHEN
+        account.deposit(amount);
+        //THEN
+        Assertions.assertTrue(account.getBalance() == 200.0);
+        Assertions.assertTrue(account.getListOperation().size() == 1);
+    }
+
+    @Test
+    void deposit_amount_equal_zero() {
+        //GIVEN
+        double amount = -200.0;
+
+        //THEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(amount);
+        });
+
+        String expectedMessage = "cannot deposit negative amount";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.equals(expectedMessage));
+        Assertions.assertTrue(account.getListOperation().size() == 0);
+    }
+
+    @Test
+    void deposit_null_value() {
+
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(null);
+        });
+
+        String expectedMessage = "cannot deposit negative amount";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.equals(expectedMessage));
+        Assertions.assertTrue(account.getListOperation().size() == 0);
+    }
+
+    @Test
+    void deposit_negative_amount() {
+        //GIVEN
+        double amount = -200.0;
+
+        //THEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            account.deposit(amount);
+        });
+
+        String expectedMessage = "cannot deposit negative amount";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.equals(expectedMessage));
+        Assertions.assertTrue(account.getListOperation().size() == 0);
+    }
 }
