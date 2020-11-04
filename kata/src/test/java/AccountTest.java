@@ -76,4 +76,54 @@ public class AccountTest {
         Assertions.assertTrue(actualMessage.equals(expectedMessage));
         Assertions.assertTrue(account.getListOperation().size() == 0);
     }
+
+    @Test
+    void withdrawal_positive_amount() throws IllegalArgumentException {
+        //GIVEN
+        account.deposit(500);
+        int amount = 200;
+        //WHEN
+        account.withdrawal(amount);
+        //THEN
+        Assertions.assertTrue(account.getBalance() == 300.0);
+        Assertions.assertTrue(account.getListOperation().size() == 2);
+    }
+
+    @Test
+    void withdrawal_negatif_amount() throws IllegalArgumentException {
+        //GIVEN
+        account.deposit(500);
+        int amount = -200;
+
+        //THEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            account.withdrawal(amount);
+        });
+
+        String expectedMessage = "cannot withdrawal negative amount";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.equals(expectedMessage));
+        Assertions.assertTrue(account.getListOperation().size() == 1);
+    }
+
+    @Test
+    void withdrawal_test_ko_insufficient_balance() throws IllegalArgumentException {
+        //GIVEN
+        account.deposit(500);
+        int amount = 700;
+
+        //THEN
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            account.withdrawal(amount);
+        });
+
+        String expectedMessage = "insufficient balance";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.equals(expectedMessage));
+        Assertions.assertTrue(account.getListOperation().size() == 1);
+    }
+
+
 }
