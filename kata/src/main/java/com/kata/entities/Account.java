@@ -65,4 +65,17 @@ public class Account {
         }
     }
 
+    public List<Operation> getAccountStatement() throws IllegalArgumentException {
+        List<Operation> operations = this.getListOperation();
+        if (operations.size() == 0) {
+            throw new IllegalArgumentException("empty history");
+        }
+        System.out.println("Your account statement: ");
+        operations.forEach(x -> {
+            System.out.println("Operation: "+ x.getOperationType()+ " date:" + x.getDateOperation()
+                    + " amount " + x.getAmount() + " balance: " + x.getBalance());
+        });
+        return operations;
+    }
+
 }
