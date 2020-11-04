@@ -21,7 +21,7 @@ public class AccountTest {
     @Test
     void deposit_positive_amount() throws IllegalArgumentException {
         //GIVEN
-        double amount = 200.0;
+        int amount = 200;
         //WHEN
         account.deposit(amount);
         //THEN
@@ -32,14 +32,14 @@ public class AccountTest {
     @Test
     void deposit_amount_equal_zero() {
         //GIVEN
-        double amount = -200.0;
+        int amount = 0;
 
         //THEN
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
             account.deposit(amount);
         });
 
-        String expectedMessage = "cannot deposit negative amount";
+        String expectedMessage = "cannot deposit zero";
         String actualMessage = exception.getMessage();
 
         Assertions.assertTrue(actualMessage.equals(expectedMessage));
@@ -53,7 +53,7 @@ public class AccountTest {
             account.deposit(null);
         });
 
-        String expectedMessage = "cannot deposit negative amount";
+        String expectedMessage = "null value";
         String actualMessage = exception.getMessage();
 
         Assertions.assertTrue(actualMessage.equals(expectedMessage));
@@ -63,7 +63,7 @@ public class AccountTest {
     @Test
     void deposit_negative_amount() {
         //GIVEN
-        double amount = -200.0;
+        int amount = -200;
 
         //THEN
         IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {

@@ -11,7 +11,7 @@ public class Operation {
 
     private LocalDateTime dateOperation;
 
-    private double amount;
+    private int amount;
 
     private double balance;
 
@@ -23,7 +23,7 @@ public class Operation {
         return dateOperation;
     }
 
-    public double getAmount() {
+    public int getAmount() {
         return amount;
     }
 
@@ -32,7 +32,7 @@ public class Operation {
     }
 
 
-    public Operation(OperationType operationType, LocalDateTime dateOperation, double amount, double balance) {
+    public Operation(OperationType operationType, LocalDateTime dateOperation, int amount, double balance) {
         this.operationType = operationType;
         this.dateOperation = dateOperation;
         this.amount = amount;
