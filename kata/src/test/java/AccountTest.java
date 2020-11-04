@@ -125,5 +125,32 @@ public class AccountTest {
         Assertions.assertTrue(account.getListOperation().size() == 1);
     }
 
+    @Test
+    void getAccountStatement_empty() {
+        IllegalArgumentException exception = Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            account.getAccountStatement();
+        });
+
+        String expectedMessage = "empty history";
+        String actualMessage = exception.getMessage();
+
+        Assertions.assertTrue(actualMessage.equals(expectedMessage));
+    }
+
+    @Test
+    void getAccountStatement_test() throws IllegalArgumentException {
+        //GIVEN
+        int amount = 200;
+        //WHEN
+        account.deposit(amount);
+        account.deposit(amount);
+        account.withdrawal(amount);
+        account.deposit(amount);
+        account.deposit(amount);
+        account.withdrawal(amount);
+        //THEN
+        Assertions.assertTrue(account.getAccountStatement().size() == 6);
+    }
+
 
 }
