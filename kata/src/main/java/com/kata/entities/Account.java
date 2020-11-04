@@ -53,4 +53,16 @@ public class Account {
         }
     }
 
+    public void withdrawal(int amount) throws IllegalArgumentException {
+        if (amount < 0) {
+            throw new IllegalArgumentException("cannot withdrawal negative amount");
+        } else if (amount > this.getBalance()) {
+            throw new IllegalArgumentException("insufficient balance");
+        } else {
+            this.setBalance(this.getBalance() - amount);
+            Operation operation = new Operation(OperationType.WITHDRAWAL, LocalDateTime.now(),amount,this.getBalance());
+            this.getListOperation().add(operation);
+        }
+    }
+
 }
